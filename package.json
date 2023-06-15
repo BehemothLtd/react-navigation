@@ -1,7 +1,7 @@
 {
   "name": "behemoth-react-navigation",
   "description": "React Navigation",
-  "private": true,
+  "private": false,
   "version": "4.1.2",
   "workspaces": {
     "packages": [
