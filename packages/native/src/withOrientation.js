@@ -10,23 +10,24 @@ export default function (WrappedComponent) {
       super();
 
       const isLandscape = isOrientationLandscape(Dimensions.get('window'));
-      this.state = { isLandscape, eventListener: null };
+      this.state = { isLandscape };
     }
 
     componentDidMount() {
-      const eventListener = Dimensions.addEventListener('change', this.handleOrientationChange);
-      setState({ eventListener });
+      this.dimensionsSubscription = Dimensions.addEventListener(
+        'change',
+        this.handleOrientationChange
+      );
     }
 
     componentWillUnmount() {
       try {
-        if (this.state.eventListener) {
-          this.state.eventListener.remove();
+        if (this.dimensionsSubscription) {
+          this.dimensionsSubscription.remove();
         }
       } catch (e) {
-        console.log("Error happen when remove event listener", e);
+        console.log('Error happen when remove event listener', e);
       }
-  
     }
 
     handleOrientationChange = ({ window }) => {
